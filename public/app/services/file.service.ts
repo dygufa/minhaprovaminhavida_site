@@ -21,4 +21,6 @@ export class FileService {
 		return body.files || {};
 	}
 
+	private handleError(error: any) {
+	}
 }

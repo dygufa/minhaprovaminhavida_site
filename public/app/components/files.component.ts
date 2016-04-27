@@ -13,8 +13,7 @@ export class FilesComponent {
 	getFiles() {
 		this._fileService.getFiles()
 			.subscribe(
-			files => this.files = files,
-			error => this.errorMessage = <any>error);
+			files => this.files = files);
 	}
 	ngOnInit() {
 		this.getFiles();
