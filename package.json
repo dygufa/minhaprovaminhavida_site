@@ -1,0 +1,36 @@
+{
+  "name": "minhaprovaminhavida",
+  "version": "1.0.0",
+  "description": ":school: Repository for UFBA's exams and study material!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dygufa/minhaprovaminhavida.git"
+  },
+  "author": "Rodrigo Araujo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dygufa/minhaprovaminhavida/issues"
+  },
+  "homepage": "https://github.com/dygufa/minhaprovaminhavida#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongoose": "^4.4.13",
+    "angular2": "2.0.0-beta.15",
+    "systemjs": "0.19.26",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.10"
+  },
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.10",
+    "typings":"^0.7.12"
+  }
+}
