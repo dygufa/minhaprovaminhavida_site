@@ -1,5 +1,7 @@
 <h2>Arquivos:</h2>
 
+<a [routerLink]="['AddFile']">Adicionar arquivo</a>
+
 <ul>
 	<li *ngFor="#file of files">{{file.id}} - {{file.name}}</li>
 </ul>

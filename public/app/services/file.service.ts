@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {Http, Response} from 'angular2/http';
+import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {File} from '../models/file';
 import {Observable}     from 'rxjs/Observable';
 
@@ -11,6 +11,15 @@ export class FileService {
 		return this.http.get('/files')
 			.map(this.extractData)
 			.catch(this.handleError);
+	}
+
+	saveFile(data) {
+		let body = data;
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: headers });
+
+		return this.http.post('/files', body, options)
+			.map(res => res.json());
 	}
 	
 	private extractData(res: Response) {
