@@ -11,13 +11,27 @@ import { ROUTER_DIRECTIVES } from 'angular2/router';
 
 export class FilesComponent {
 	files: File[];
+
 	constructor(private _fileService: FileService) { }
+
 	getFiles() {
 		this._fileService.getFiles()
 			.subscribe(
 			files => this.files = files);
 	}
+
 	ngOnInit() {
 		this.getFiles();
+	}
+
+	removeFile(file) {
+		var _self = this;
+		
+		this._fileService.removeFile(file.id)
+			.subscribe(function(res) {
+				console.log(res);
+				var index = _self.files.indexOf(file);
+				_self.files.splice(index, 1);
+			});
 	}
 }

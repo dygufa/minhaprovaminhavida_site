@@ -3,5 +3,5 @@
 <a [routerLink]="['AddFile']">Adicionar arquivo</a>
 
 <ul>
-	<li *ngFor="#file of files">{{file.id}} - {{file.name}}</li>
+	<li *ngFor="#file of files">#{{file.id}} - <b>Nome</b>: {{file.name}} - <b>Course</b>: {{file.course}} - <b>Professor</b>: {{file.professor}} - <a href="{{file.file}}" target="_blank">{{file.file}}</a> - <span (click)="removeFile(file)">Delete</span></li>
 </ul>
