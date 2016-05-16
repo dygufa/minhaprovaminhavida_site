@@ -1,10 +1,30 @@
-var express = require('express'),
-    app = express(),
-    fs = require('fs'),
-    bodyParser = require('body-parser');
+var express     = require('express'),
+    app         = express(),
+    fs          = require('fs'),
+    bodyParser  = require('body-parser'),
+    multer      = require('multer');
 
 var cwd = process.cwd();
-var models = require('../models')
+var models = require('../models');
+
+/*
+var upload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: S3_BUCKET,
+        acl: 'public-read',
+        contentType: function (req, file, cb) {
+            cb(null, file.mimetype);
+        },
+        key: function (req, file, cb) {
+            var filename    = slug(file.originalname.replace(/\.[^/.]+$/, "")),
+                extension   = mime.extension(file.mimetype);
+            cb(null, Date.now().toString() + '-' + filename + '.' + extension)
+        }
+    })
+});*/
+
+var upload = multer({dest: cwd + '/temporary_files'});
 
 var controllers = {}, 
     controllers_path = cwd + '/server/controllers'
@@ -24,7 +44,8 @@ app.use(express.static(cwd + '/public'));
 app.use('/node_modules', express.static(cwd + '/node_modules'));
 
 app.get('/files', controllers.files.getIndex)
-app.post('/files', controllers.files.addFile)
+app.post('/files', upload.array("uploads[]", 12), controllers.files.addFile)
+app.delete('/files/:id', controllers.files.removeFile)
 
 app.use(function(req, res) {
     res.sendFile(cwd + '/public/index.html')
