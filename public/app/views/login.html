@@ -1,0 +1,7 @@
+<div *ngIf="!authInfo || authInfo.logged == false">
+	<a href="/users/login/facebook">Fazer login 2</a>
+</div>
+
+<div *ngIf="authInfo && authInfo.logged == true">
+	<img src="{{authInfo.user.picture}}" /> Oi {{authInfo.user.firstName}}
+</div>

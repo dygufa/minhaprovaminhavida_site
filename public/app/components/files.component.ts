@@ -1,7 +1,9 @@
-import { Component, OnInit } from 'angular2/core';
+import { Component, OnInit, Input } from 'angular2/core';
 import { File } from '../models/file';
 import { FileService } from '../services/file.service'
+import { UserService } from '../services/user.service'
 import { ROUTER_DIRECTIVES } from 'angular2/router';
+import { Router } from 'angular2/router';
 
 @Component({
 	selector: 'my-files',
@@ -10,9 +12,10 @@ import { ROUTER_DIRECTIVES } from 'angular2/router';
 })
 
 export class FilesComponent {
+	authInfo;
 	files: File[];
 
-	constructor(private _fileService: FileService) { }
+	constructor(private _fileService: FileService, private _userService: UserService, private _router: Router) { }
 
 	getFiles() {
 		this._fileService.getFiles()
@@ -21,7 +24,15 @@ export class FilesComponent {
 	}
 
 	ngOnInit() {
+		let _self = this;
+
 		this.getFiles();
+
+		this.authInfo = this._userService.getCurrentAuthStatus();
+		
+		this._userService.authStatus$.subscribe(function(res) {
+			_self.authInfo = res;
+		});
 	}
 
 	removeFile(file) {
@@ -33,5 +44,14 @@ export class FilesComponent {
 				var index = _self.files.indexOf(file);
 				_self.files.splice(index, 1);
 			});
+	}
+
+	gotoAddFile() {
+		if (!this.authInfo || this.authInfo.logged == false) {
+			alert('Você precisa estar logado!');
+		} else {
+			let link = ['AddFile'];
+			this._router.navigate(link);
+		}
 	}
 }

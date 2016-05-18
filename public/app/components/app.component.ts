@@ -3,7 +3,9 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { FilesComponent } from './files.component';
 import { AddFileComponent } from './add-file.component';
+import { LoginComponent } from './login.component';
 import { FileService } from '../services/file.service';
+import { UserService } from '../services/user.service';
 import {FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 
 @RouteConfig([
@@ -23,12 +25,13 @@ import {FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/views/app.html',
-	directives: [ROUTER_DIRECTIVES],
+	directives: [ROUTER_DIRECTIVES, LoginComponent],
 	providers: [
 		ROUTER_PROVIDERS,
 		HTTP_PROVIDERS,
 		FORM_PROVIDERS,
-		FileService
+		FileService,
+		UserService
 	]
 })
 
