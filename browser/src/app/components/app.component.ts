@@ -1,12 +1,12 @@
-import { Component } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
-import { HTTP_PROVIDERS } from 'angular2/http';
+import { Component, OnInit, Inject } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { FilesComponent } from './files.component';
 import { AddFileComponent } from './add-file.component';
 import { LoginComponent } from './login.component';
 import { FileService } from '../services/file.service';
 import { UserService } from '../services/user.service';
-import {FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
+import {FORM_PROVIDERS, FormBuilder, Validators} from '@angular/common';
 
 @RouteConfig([
 	{
@@ -36,5 +36,5 @@ import {FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 })
 
 export class AppComponent {
-	title = 'Minha prova, minha vida';
+	title = 'Minha prova, minha vida!!';
 }

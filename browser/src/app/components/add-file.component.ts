@@ -1,8 +1,8 @@
-import { Component, OnInit } from 'angular2/core';
+import { Component, OnInit } from '@angular/core';
 import { File } from '../models/file';
 import { FileService } from '../services/file.service';
-import { FORM_PROVIDERS, FormBuilder, Validators } from 'angular2/common';
-import { Router } from 'angular2/router';
+import { FORM_PROVIDERS, FormBuilder, Validators } from '@angular/common';
+import { Router } from '@angular/router-deprecated';
 
 @Component({
 	selector: 'add-file-form',
@@ -12,15 +12,16 @@ import { Router } from 'angular2/router';
 
 export class AddFileComponent {
 	userForm: any;
+	universities: any;
 
-	fileRequired(control: Control) {
-		if (typeof (control.value) != 'object') {
+	fileRequired(/*control: Control*/) {
+/*		if (typeof (control.value) != 'object') {
 			return {
 				validateFiles: {
 					valid: false
 				}
 			};
-		}
+		}*/
 		return null
 	}
 
@@ -33,8 +34,12 @@ export class AddFileComponent {
 			'name': ['', Validators.required],
 			'course': ['', Validators.compose([Validators.required])],
 			'professor': ['', Validators.required],
-			'files': ['', this.fileRequired]
+			'files': ['', this.fileRequired],
+			'selectedUniversity': ['', this.fileRequired]
 		});
+
+		this.universities = [];
+        this.universities.push({ label: 'UFBA', value: 'UFBA' });
 	}
 
 	private addFile(data) {

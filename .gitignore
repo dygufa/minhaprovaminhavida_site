@@ -2,6 +2,8 @@ node_modules
 .env
 temporary_files/*
 !temporary_files/.empty
+browser/build/*
+!browser/build/.empty
 public/app/**/*.js
 public/app/**/*.js.map
 *.swp

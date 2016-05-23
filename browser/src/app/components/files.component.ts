@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from 'angular2/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { File } from '../models/file';
 import { FileService } from '../services/file.service'
 import { UserService } from '../services/user.service'
-import { ROUTER_DIRECTIVES } from 'angular2/router';
-import { Router } from 'angular2/router';
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Router } from '@angular/router-deprecated';
 
 @Component({
 	selector: 'my-files',
@@ -48,7 +48,7 @@ export class FilesComponent {
 
 	gotoAddFile() {
 		if (!this.authInfo || this.authInfo.logged == false) {
-			alert('Você precisa estar logado!');
+			alert('Você precisa estar logado!!');
 		} else {
 			let link = ['AddFile'];
 			this._router.navigate(link);

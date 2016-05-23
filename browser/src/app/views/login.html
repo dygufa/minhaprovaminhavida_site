@@ -1,5 +1,5 @@
 <div *ngIf="!authInfo || authInfo.logged == false">
-	<a href="/users/login/facebook">Fazer login 2</a>
+	<a (click)="redirectLoginFacebook()">Fazer login usando Facebook</a>
 </div>
 
 <div *ngIf="authInfo && authInfo.logged == true">

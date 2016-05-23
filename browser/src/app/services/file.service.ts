@@ -1,19 +1,22 @@
-import {Injectable} from 'angular2/core';
-import {Http, Response, Headers, RequestOptions} from 'angular2/http';
+import {Injectable, Inject} from '@angular/core';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {File} from '../models/file';
 import {Observable}     from 'rxjs/Observable';
 
 @Injectable()
 export class FileService {
-	constructor(private http: Http) { }
+    private APIEndpoint;
+
+    constructor(@Inject('Config') private _config, private http: Http) { 
+        this.APIEndpoint = this._config.API_ENDPOINT;
+    }
 
 	getFiles(): Observable<File[]> {
-		return this.http.get('/files')
-			.map(this.extractData)
-			.catch(this.handleError);
+        return this.http.get(this.APIEndpoint + '/files')
+            .map(this.extractData);
 	}
 
-    addFile(params: Array<string>) {
+    addFile(params: Array<any>) {
         return new Promise((resolve, reject) => {
             var formData: any = new FormData();
             var xhr = new XMLHttpRequest();
@@ -36,13 +39,13 @@ export class FileService {
                     }
                 }
             }
-            xhr.open("POST", '/files', true);
+            xhr.open("POST", this.APIEndpoint + '/files', true);
             xhr.send(formData);
         });
     }
 
     removeFile(fileID) {
-		return this.http.delete('/files/' + fileID).map(this.extractData)
+        return this.http.delete(this.APIEndpoint + '/files/' + fileID).map(this.extractData)
     }
 	
 	private extractData(res: Response) {
