@@ -1,14 +1,18 @@
 module.exports = function(sequelize, DataTypes) {
-	var File = sequelize.define('File', {
+	var File = sequelize.define('file', {
 		name: DataTypes.STRING,
-		course: DataTypes.STRING,
-		professor: DataTypes.STRING,
 		file: DataTypes.STRING,
-		universityId: DataTypes.INTEGER,
-		courseCode: DataTypes.STRING,
 		status: DataTypes.INTEGER,
 		type: DataTypes.INTEGER
-	});
+	}, {
+        classMethods: {
+            associate: function(models) {
+            	File.belongsTo(models.user, { foreignKey: 'createdBy' });
+                File.belongsTo(models.course, { foreignKey: 'CourseId' });
+                File.belongsTo(models.university, { foreignKey: 'UniversityId' });
+            }
+        }
+    });
 
 	return File;
 }
