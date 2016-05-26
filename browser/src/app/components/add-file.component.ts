@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { File } from '../models/file';
 import { FileService } from '../services/file.service';
+import { UniversityService } from '../services/university.service';
+import { CourseService } from '../services/course.service';
 import { FORM_PROVIDERS, FormBuilder, Validators } from '@angular/common';
 import { Router } from '@angular/router-deprecated';
 
@@ -12,10 +14,11 @@ import { Router } from '@angular/router-deprecated';
 
 export class AddFileComponent {
 	userForm: any;
-	universities: any;
+	universities: any = [];
+	courses: any = [];
 
 	fileRequired(/*control: Control*/) {
-/*		if (typeof (control.value) != 'object') {
+		/*if (typeof (control.value) != 'object') {
 			return {
 				validateFiles: {
 					valid: false
@@ -25,21 +28,38 @@ export class AddFileComponent {
 		return null
 	}
 
-	constructor(private _fileService: FileService, private _formBuilder: FormBuilder, private _router: Router) {
+	constructor(private _courseService: CourseService, private _universityService: UniversityService, private _fileService: FileService, private _formBuilder: FormBuilder, private _router: Router) {
 		
 	}
 
 	ngOnInit() {
+		let _self = this;
+
 		this.userForm = this._formBuilder.group({
 			'name': ['', Validators.required],
-			'course': ['', Validators.compose([Validators.required])],
-			'professor': ['', Validators.required],
+			'course': [1, Validators.compose([Validators.required])],
+			'university': [2, Validators.required],
 			'files': ['', this.fileRequired],
-			'selectedUniversity': ['', this.fileRequired]
 		});
 
-		this.universities = [];
-        this.universities.push({ label: 'UFBA', value: 'UFBA' });
+		this._universityService.getUniversities().subscribe(function(universities) {
+			universities.forEach(function(university) {
+				_self.universities.push({
+					label: university.acronym + ' - ' + university.name,
+					value: university.id
+				});
+			});			
+		});	
+
+		this._courseService.getCourses().subscribe(function(courses) {
+			courses.forEach(function(course) {
+				_self.courses.push({
+					label: course.name,
+					value: course.id
+				});
+			});
+		});
+        
 	}
 
 	private addFile(data) {

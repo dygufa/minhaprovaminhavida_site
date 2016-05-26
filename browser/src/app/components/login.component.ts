@@ -19,7 +19,6 @@ export class LoginComponent {
 		this._userService.verifyAuthStatus()
 			.then(function(res) {
 				_self.authInfo = res;
-				console.log(_self.authInfo);
 			})
 
 		this.APIEndpoint = this._config.API_ENDPOINT;

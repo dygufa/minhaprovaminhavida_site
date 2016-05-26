@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
             	File.belongsTo(models.user, { foreignKey: 'createdBy' });
-                File.belongsTo(models.course, { foreignKey: 'CourseId' });
-                File.belongsTo(models.university, { foreignKey: 'UniversityId' });
+                File.belongsTo(models.course, { foreignKey: 'courseId' });
+                File.belongsTo(models.university, { foreignKey: 'universityId' });
             }
         }
     });

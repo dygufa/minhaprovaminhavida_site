@@ -6,7 +6,7 @@ var fs          = require('fs'),
     S3_BUCKET   = process.env.S3_BUCKET;
 
 exports.getIndex = function(req, res) {
-	models.File.findAll().then(function (files) {
+	models.file.findAll().then(function (files) {
 		res.send(JSON.stringify({'data': files}));
 	});
 }
@@ -28,10 +28,13 @@ exports.addFile = function(req, res) {
         }
     });
     s3obj.upload({Body: body}).send(function(err, data) { 
-        models.File.create({
+        models.file.create({
             name: formData.name,
-            professor: formData.professor,
-            course: formData.course,
+            universityId: formData.university,
+            courseId: formData.course,
+            status: 1,
+            type: 1,
+            createdBy: 4,
             file: data.Location
         }).then(function(file) {
             res.send(JSON.stringify({'data': req.body}))
@@ -40,7 +43,7 @@ exports.addFile = function(req, res) {
 }
 
 exports.removeFile = function(req, res) {
-    models.File.destroy({
+    models.file.destroy({
         where: {
             id: req.params.id
         }

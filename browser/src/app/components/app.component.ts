@@ -5,6 +5,8 @@ import { FilesComponent } from './files.component';
 import { AddFileComponent } from './add-file.component';
 import { LoginComponent } from './login.component';
 import { FileService } from '../services/file.service';
+import { UniversityService } from '../services/university.service';
+import { CourseService } from '../services/course.service';
 import { UserService } from '../services/user.service';
 import {FORM_PROVIDERS, FormBuilder, Validators} from '@angular/common';
 
@@ -31,7 +33,9 @@ import {FORM_PROVIDERS, FormBuilder, Validators} from '@angular/common';
 		HTTP_PROVIDERS,
 		FORM_PROVIDERS,
 		FileService,
-		UserService
+		UserService,
+		UniversityService,
+		CourseService
 	]
 })
 
