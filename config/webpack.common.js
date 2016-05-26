@@ -7,9 +7,9 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 
 module.exports = {
   entry: {
-    'polyfills': './browser/src/polyfills.ts',
-    'vendor': './browser/src/vendor.ts',
-    'main': './browser/src/main.browser.ts'
+    'polyfills': ['./browser/src/polyfills.ts'],
+    'vendor': ['./browser/src/vendor.ts'],
+    'main': ['./browser/src/main.browser.ts']
   },
   resolve: {
     extensions: ['', '.ts', '.js'],
