@@ -4,7 +4,7 @@ var Sequelize = require('sequelize');
 	models_path = process.cwd() + '/server/models',
     db = {};
 
-var sequelize = new Sequelize(process.env.PSQL_URL);
+var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 fs
 .readdirSync(models_path)
