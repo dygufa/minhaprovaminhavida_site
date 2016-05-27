@@ -22,7 +22,4 @@ export class UniversityService {
 		let body = res.json();
 		return body.data || {};
 	}
-
-	private handleError(error: any) {
-	}
 }

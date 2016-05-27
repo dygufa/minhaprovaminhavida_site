@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { File } from '../models/file';
+import { selectOption } from '../models/selectOption';
 import { FileService } from '../services/file.service';
 import { UniversityService } from '../services/university.service';
 import { CourseService } from '../services/course.service';
-import { FORM_PROVIDERS, FormBuilder, Validators } from '@angular/common';
+import { FORM_PROVIDERS, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { Router } from '@angular/router-deprecated';
 
 @Component({
@@ -14,8 +14,8 @@ import { Router } from '@angular/router-deprecated';
 
 export class AddFileComponent {
 	userForm: any;
-	universities: any = [];
-	courses: any = [];
+	universities: selectOption[] = [];
+	courses: selectOption[] = [];
 
 	fileRequired(/*control: Control*/) {
 		/*if (typeof (control.value) != 'object') {
