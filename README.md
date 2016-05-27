@@ -11,5 +11,7 @@ To-do
 - Allow user to add university and course;
 - Allow administrator to review files before making it public;
 - Implement virus verification on the files before making it public using [clamscan](https://www.npmjs.com/package/clamscan);
-- Implement server renderization using [Universal](https://universal.angular.io/).
+- Implement server renderization using [Universal](https://universal.angular.io/);
+- Implement validation on the forms and authorization on the routes (node and angular);
+- Remove dev code from router.ts, use [Gulp](http://gulpjs.com/) instead.
 
