@@ -28,8 +28,8 @@ nano .env
 
 ## Todos (by priority)
 
-1. Remove dev code from router.ts, use [Gulp](http://gulpjs.com/) instead;
-2. Fix building process for production (using Gulp);
+1. ~~Remove dev code from router.ts;~~
+2. ~~Fix building process for production;~~
 3. Allow user to add university and course;
 4. Implement validation on the forms and authorization on the routes (node and angular);- 
 5. Allow administrator to review files before making it public;
