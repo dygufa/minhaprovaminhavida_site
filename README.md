@@ -26,6 +26,10 @@ nano .env
 
 ### Commands:
 
+- `npm run build` will build the angular 2 app into /src/build (production);
+- `npm run start` will start a express webserver (mpmv.js) using nodemon (production);
+- `npm run dev` will start a express webserver (mpmv.js) using nodemon and a webpack-dev-server. The ports for both of them can be defined on .env.
+
 ## Todos (by priority)
 
 1. ~~Remove dev code from router.ts;~~
