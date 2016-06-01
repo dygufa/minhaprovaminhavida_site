@@ -1,6 +1,8 @@
 var fs          = require('fs'),
     models      = require('../models');
 
+var fieldsOfStudy = [];
+
 exports.getIndex = function(req, res) {
 	models.course.findAll().then(function (universities) {
 		res.send(JSON.stringify({'data': universities}));
@@ -13,10 +15,12 @@ exports.addCourse = function(req, res) {
     models.course.create({
         name: formData.name,
         fieldOfStudy: 1,
-        createdBy: 4
+        createdBy: 55
     }).then(function(course) {
         res.send(JSON.stringify({'data': course}))
-    })  
+    }).catch(function (err) {
+        console.log(err);
+    });
        
 }
 

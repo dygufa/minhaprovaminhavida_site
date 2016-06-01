@@ -6,6 +6,7 @@ import {Observable}     from 'rxjs/Observable';
 @Injectable()
 export class FileService {
     private APIEndpoint;
+    private types: Array<Object> = [{ id: 1, name: 'Prova' }, { id: 2, name: 'Lista' }];
 
     constructor(@Inject('Config') private _config, private http: Http) { 
         this.APIEndpoint = this._config.API_ENDPOINT;
@@ -35,7 +36,7 @@ export class FileService {
                     if (xhr.status == 200) {
                         resolve(JSON.parse(xhr.response));
                     } else {
-                        reject(xhr.response);
+                        reject(JSON.parse(xhr.response));
                     }
                 }
             }
@@ -58,4 +59,8 @@ export class FileService {
 
 	private handleError(error: any) {
 	}
+
+    getTypes(): Array<Object> {
+        return this.types;
+    }
 }

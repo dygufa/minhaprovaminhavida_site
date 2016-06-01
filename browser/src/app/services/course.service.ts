@@ -5,6 +5,7 @@ import {Observable}     from 'rxjs/Observable';
 @Injectable()
 export class CourseService {
     private APIEndpoint;
+    private fieldsOfStudy = [{ id: 1, name: 'Exatas'}, { id: 2, name: 'Humanas'}];
 
     constructor(@Inject('Config') private _config, private http: Http) { 
         this.APIEndpoint = this._config.API_ENDPOINT;
@@ -13,6 +14,10 @@ export class CourseService {
 	getCourses(): Observable<any[]> {
         return this.http.get(this.APIEndpoint + '/courses')
             .map(this.extractData);
+	}
+
+	getFieldsOfStudy(): Array<Object> {
+		return this.fieldsOfStudy;
 	}
 	
 	private extractData(res: Response) {
