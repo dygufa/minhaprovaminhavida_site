@@ -4,7 +4,7 @@ var fs          = require('fs'),
     slug        = require('slug'),
     mime        = require('mime-types'),
     S3_BUCKET   = process.env.S3_BUCKET;
-    Promise     = require('promise');
+    Promise     = require('bluebird');
 
 exports.getIndex = function(req, res) {
 	models.file.findAll().then(function (files) {
@@ -37,16 +37,14 @@ function uploadFileToS3(data, callback) {
 
             return resolve(data);
         });
-    });    
+    }); 
 }
 
 exports.addFile = function(req, res) {
     var formData        = req.body,
-        //userId          = req.session.passport.user.userId,
-        userId = 4,
+        userId          = req.session.passport.user.userId,
         files           = req.files;
 
-    // Upload the file do amazon s3
     models.sequelize.transaction(function(t) {
         var fileData = {
             name: formData.name,
