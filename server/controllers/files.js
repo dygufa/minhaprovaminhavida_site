@@ -33,9 +33,9 @@ function uploadFileToS3(data, callback) {
         s3obj.upload({Body: fileStream}).send(function(err, data) {
             if (err) {
                 return reject(err);
-            } else { 
-                return resolve(data);
             }
+
+            return resolve(data);
         });
     });    
 }
@@ -47,7 +47,7 @@ exports.addFile = function(req, res) {
         files           = req.files;
 
     // Upload the file do amazon s3
-    models.sequelize.transaction().then(function (t) {
+    models.sequelize.transaction(function(t) {
         var fileData = {
             name: formData.name,
             universityId: formData.universityId,
@@ -58,43 +58,60 @@ exports.addFile = function(req, res) {
             courseId: null
         };
 
-        if (formData.courseId == 0) {
-            return models.course.create({
-                name: formData.courseName,
-                fieldOfStudy: formData.fieldOfStudyId
-            }, {transaction: t}).then(function(courseEntry) {
-                fileData.courseId = courseEntry.id;
-                return models.file.build(fileData).validate({
-                    skip: ['courseId']
-                }).then(function(ValidationError) {
-                    if (ValidationError !== null) {
-                        return t.rollback();
-                    }                    
-                    uploadFileToS3({
-                        file: files[0] // first file
-                    }).then(function(fileS3) {
-                        fileData.file = fileS3.Location;
-                        return models.file.create(fileData, {
-                            transaction: t,
-                            validate: false
-                        }).then(function() {
-                            return t.commit();
-                        });
-                    });
+        var createFile = function(fileData, options) {
+            return models.file.build(fileData).validate({
+                skip: options.skipValidation
+            })
+            .then(function(validationError) {
+                if (validationError) {
+                    throw validationError;
+                }
+
+                return uploadFileToS3({
+                    file: files[0] // first file
                 });
-            });                
-        } else {
-            fileData.courseId = formData.courseId;
-            return models.file.create(fileData, {transaction: t});
+            })
+            .then(function(fileS3) {
+                fileData.file = fileS3.Location;
+
+                return models.file.create(fileData, {
+                    transaction: t,
+                    validate: false
+                });
+            });
         }
-    }).then(function(fileEntry) {
+
+        if (formData.courseId != 0) {
+            fileData.courseId = formData.courseId;
+
+            return createFile(fileData, {
+                skipValidation: []
+            });
+        }
+
+        return models.course.create({
+            name: formData.courseName,
+            fieldOfStudy: formData.fieldOfStudyId
+        }, {transaction: t})
+        .then(function(courseEntry) {
+            fileData.courseId = courseEntry.id;
+
+            return createFile(fileData, {
+                skipValidation: ['courseId']
+            });
+        });
+    })
+    .then(function(fileEntry) {
         res.status(200).send(JSON.stringify({'data': fileEntry})); 
-    }).catch(models.Sequelize.ValidationError, function (err) {
+    })
+    .catch(models.Sequelize.ValidationError, function (err) {
         return res.status(422).send({error: err.errors});
-    }).catch(function (err) {
+    })
+    .catch(function (err) {
         return res.status(400).send({error: err});
     });       
 }
+
 
 exports.removeFile = function(req, res) {
     models.file.destroy({
