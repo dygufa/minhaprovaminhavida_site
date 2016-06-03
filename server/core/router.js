@@ -8,7 +8,7 @@ var dotenv          = require('dotenv').config();
     passport        = require('passport'),
     expressSession  = require('express-session'),
     cors            = require('cors'),
-    proxy           = require('express-http-proxy');
+    RedisStore      = require('connect-redis')(expressSession);
 
 // Get base directory
 var cwd = process.cwd();
@@ -50,14 +50,21 @@ app.use('/node_modules', express.static(cwd + '/node_modules'));
 app.use(bodyParser.json());       
 // to support URL-encoded bodies
 app.use(bodyParser.urlencoded({extended: true})); 
-app.use(expressSession({secret: SESSION_SECRET, resave: false, saveUninitialized: false}));
+app.use(expressSession({
+    secret: SESSION_SECRET, 
+    store: new RedisStore({ 
+        host: 'localhost', 
+        port: 6379
+    }),
+    resave: false, 
+    saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 var auth = function(req, res, next) { 
     if (!req.isAuthenticated()) {
-        console.log('Unauthorized');
-        res.sendStatus(401);
+        res.status(401).send({error: [{message: 'Você precisa estar logado para fazer esta operação.'}]});
     } else {
         next();
     }
@@ -82,6 +89,8 @@ api.get('/users/isLogged', function(req, res) {
         res.json({'data': {'logged': true, 'user': req.session.passport.user}});
     }    
 })
+
+api.get('/users/logout', controllers.users.logout);
 
 api.get('/users/login/facebook', passport.authenticate('facebook', { scope : ['email'] }));
  
