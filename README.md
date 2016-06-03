@@ -36,7 +36,7 @@ nano .env
 2. ~~Fix building process for production;~~
 3. ~~Allow user to add courses;~~
 4. ~~Implement form validation (back-end) and authorization on the routes (back-end);~~
-5. Implement form validation and "router authorization" on the client;
+5. ~~Implement form validation and on the client~~;
 6. Allow administrator to review files before making it public;
 7. Implement virus verification on the files before making it public using [clamscan](https://www.npmjs.com/package/clamscan);
 8. User interface;
