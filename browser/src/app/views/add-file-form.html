@@ -1,10 +1,21 @@
 <h2>Adicionar Arquivo</h2>
-<form [ngFormModel]="addFileForm" (ngSubmit)="onSubmit()">
+
+<div *ngIf="errors.length != 0">
+    Erros:
+    <ul>
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+</div>
+
+<form [ngFormModel]="addFileForm" #form="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="name">Nome</label>
-        <input type="text" class="form-control" ngControl="name" #name="ngForm">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-        	Name is required
+        <input type="text" class="form-control" 
+            ngControl="name" 
+            #name="ngForm"
+        />
+        <div [hidden]="name.valid || (name.pristine && !submited)" class="alert alert-danger">
+        	Por favor, informe um nome! Ele deve ter entre 5 e 30 caracteres.
         </div>
     </div>
 
@@ -32,7 +43,13 @@
     <div *ngIf="courseId.value == 0">
         <div class="form-group">
             <label for="courseName">Nome da discplina</label>
-            <input type="text" class="form-control" ngControl="courseName">
+            <input type="text" class="form-control" 
+                ngControl="courseName"
+                #courseName="ngForm"
+            />
+        </div>
+        <div [hidden]="courseName.valid || (courseName.pristine && !submited)" class="alert alert-danger">
+            Por favor, informe um nome para o curso!
         </div>
 
         <div class="form-group">
@@ -45,8 +62,20 @@
 
     <div class="form-group">
         <label for="file">Arquivo</label>
-        <input type="file" class="form-control" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+        <input type="file" class="form-control" 
+            (change)="fileChangeEvent($event)" 
+            placeholder="Upload file..."
+        />
     </div>
+   <div *ngIf="!addFileForm.controls['files'].valid && (!addFileForm.controls['files'].pristine || submited)" class="alert alert-danger">
+        <span *ngIf="addFileForm.controls['files'].errors.invalidNumberOfFiles">
+            Por favor, selecione um arquivo pdf.
+        </span>
+        <span *ngIf="addFileForm.controls['files'].errors.invalidExtension">
+            O arquivo selecionado deve estar no formato pdf.
+        </span>
+    </div>
+
     <button type="submit" class="btn btn-default" >Submit</button>
 </form>
 

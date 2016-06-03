@@ -3,6 +3,7 @@ import { selectOption } from '../models/selectOption';
 import { FileService } from '../services/file.service';
 import { UniversityService } from '../services/university.service';
 import { CourseService } from '../services/course.service';
+import { ValidationService } from '../services/validation.service';
 import { FORM_PROVIDERS, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { Router } from '@angular/router-deprecated';
 
@@ -18,6 +19,8 @@ export class AddFileFormComponent {
 	courses: selectOption[] = [];
 	fieldsOfStudy: Array<Object>;
 	types: Array<Object>;
+	errors: Array<Object> = [];
+	submited = false;
 
 	constructor(private _courseService: CourseService, private _universityService: UniversityService, private _fileService: FileService, private _formBuilder: FormBuilder, private _router: Router) {
 		
@@ -30,11 +33,13 @@ export class AddFileFormComponent {
 			'name': ['', Validators.required],
 			'courseId': [1, Validators.compose([Validators.required])],
 			'universityId': [2, Validators.required],
-			'files': ['', this.fileRequired],
-			'fieldOfStudyId': [1],
+			'files': ['', ValidationService.fileValidator],
 			'typeId': [1],
-			'courseName': [''],
+			'fieldOfStudyId': [1],
+			'courseName': ['', ValidationService.requiredForNewCourseValidor],
 		});
+
+		this.addFileForm.controls['files'].updateValue([]);
 
 		this._universityService.getUniversities().subscribe(function(universities) {
 			universities.forEach(function(university) {
@@ -65,15 +70,21 @@ export class AddFileFormComponent {
 	}
 
 	private addFile(data) {
+		if (this.addFileForm.valid === false) {
+			return this.submited = true;
+		}
+		
 		var _self = this;
 		this._fileService.addFile(data).then(function(res) {
+			_self.errors = [];
 			_self.gotoFiles()
-		}).catch(function(error) {
-			console.log(error);
+		}).catch(function(reject) {
+			_self.errors = reject.error;
 		});
 	}
 
 	fileChangeEvent(fileInput: any) {
+		this.addFileForm.controls['files'].markAsDirty();
         this.addFileForm.controls['files'].updateValue(fileInput.target.files);
     }
 	
@@ -84,16 +95,5 @@ export class AddFileFormComponent {
 	gotoFiles() {
 		let link = ['Files'];
 		this._router.navigate(link);
-	}
-
-	fileRequired(/*control: Control*/) {
-		/*if (typeof (control.value) != 'object') {
-			return {
-				validateFiles: {
-					valid: false
-				}
-			};
-		}*/
-		return null
 	}
 }

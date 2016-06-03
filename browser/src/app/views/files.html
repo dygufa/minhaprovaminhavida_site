@@ -3,5 +3,5 @@
 <a (click)="gotoAddFile()">Adicionar arquivo</a>
 
 <ul>
-	<li *ngFor="let file of files">#{{file.id}} - <b>Nome</b>: {{file.name}} - <b>Course</b>: {{file.courseId}} - <b>Universidade</b>: {{file.universityId}} - <a href="{{file.file}}" target="_blank">{{file.file}}</a> - <span (click)="removeFile(file)">Delete</span></li>
+	<li *ngFor="let file of files">#{{file.id}} - <b>Nome</b>: {{file.name}} - <b>Course</b>: {{file.course.name}} - <b>Universidade</b>: {{file.university.name}} - <b>Enviador por</b>: {{file.user.name}} - <a href="{{file.file}}" target="_blank">{{file.file}}</a> - <span (click)="removeFile(file)">Delete</span></li>
 </ul>
