@@ -7,7 +7,15 @@ var fs          = require('fs'),
     Promise     = require('bluebird');
 
 exports.getIndex = function(req, res) {
-	models.file.findAll().then(function (files) {
+	models.file.findAll({
+        attributes: ['id', 'name', 'file', 'createdAt', 'type'],
+        order: 'id DESC',
+        include: [
+            {model: models.course, attributes: ['id', 'name', 'fieldOfStudy']},
+            {model: models.university, attributes: ['id', 'name', 'acronym']},
+            {model: models.user, attributes: ['id', 'name']}
+        ]
+    }).then(function (files) {
 		res.send(JSON.stringify({'data': files}));
 	});
 }
