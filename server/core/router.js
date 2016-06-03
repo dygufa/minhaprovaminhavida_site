@@ -82,24 +82,10 @@ api.get('/universities', controllers.universities.getIndex);
 api.post('/universities', controllers.universities.addUniversity);
 api.delete('/universities/:id', controllers.universities.removeUniversity);
 
-api.get('/users/isLogged', function(req, res) {
-    if (!req.isAuthenticated()) {
-        res.json({'data': {'logged': false}});
-    } else {
-        res.json({'data': {'logged': true, 'user': req.session.passport.user}});
-    }    
-})
-
+api.get('/users/isLogged', controllers.users.isLogged);
 api.get('/users/logout', controllers.users.logout);
-
-api.get('/users/login/facebook', passport.authenticate('facebook', { scope : ['email'] }));
- 
-api.get('/users/login/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect : '/',
-    failureRedirect : '/'
-  })
-);
+api.get('/users/login/facebook', controllers.users.loginFacebook(passport)); 
+api.get('/users/login/facebook/callback', controllers.users.loginFacebookCallback(passport));
 
 app.use('/api', api);
 
