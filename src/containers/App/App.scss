@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f00;
+}
+
+.site {
+    background: #ccc;
+
+    header {
+        background: #0f0;
+        height: 80px;
+        border-bottom: 4px solid #000;
+
+        h1 {
+            margin: 0;
+        }
+    }
+}

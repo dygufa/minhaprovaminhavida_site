@@ -1,39 +1,33 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { RootState, Action } from "../../redux";
-import { incrementCounter, decrementCounter, CounterPayload } from "../../redux/modules/counter/counter";
+import { fetchFiles, FilePayload } from "../../redux/modules/files/files";
 
-import CounterButton from "../../components/Buttons/CounterButton/CounterButton";
+import Cards from "../../components/Cards/Cards";
 
 export interface Props {
-    value: number;
-    dispatch: (action: Action<CounterPayload>) => any;
+    files: any;
+    dispatch: any;
 }
 
 class Home extends React.Component<Props, {}> {
 
-    onIncrement() {
-        this.props.dispatch(incrementCounter());
-    }
-
-    onDecrement() {
-        this.props.dispatch(decrementCounter());
+    componentWillMount() {
+        this.props.dispatch(fetchFiles());
     }
 
     render() {
         return (
-            <div>
-                <h1>Contador: {this.props.value}</h1>
-                <CounterButton onClick={this.onIncrement.bind(this)}>Incrementar</CounterButton>
-                <CounterButton onClick={this.onDecrement.bind(this)}>Decrementar</CounterButton>
-            </div>
+            <Cards
+                items={this.props.files}
+            />
         );
     }
 }
 
 const mapStateToProps = (state: RootState) => {
     return {
-        value: state.counter.value
+        files: state.files.items
     };
 };
 

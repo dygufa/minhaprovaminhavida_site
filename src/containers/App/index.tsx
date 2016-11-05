@@ -1,13 +1,21 @@
 import * as React from "react";
-import { PageHeader } from "react-bootstrap";
+const s = require("./App.scss");
 
-export interface Props {
+export interface Props extends React.Props<App> {
+
 }
 
 class App extends React.Component<Props, {}> {
     render() {
         return (
-            <PageHeader>Minha prova minha vida</PageHeader>
+            <div className={s.site}>
+                <header>
+                    <h1>Logo</h1>
+                </header>
+                <main>
+                    {this.props.children && React.cloneElement(this.props.children, {})}
+                </main>
+            </div>
         );
     }
 }

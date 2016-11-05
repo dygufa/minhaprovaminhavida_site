@@ -1,19 +1,28 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Router, Route, Redirect, IndexRoute, browserHistory, RouterState, RedirectFunction } from "react-router";
+import thunkMiddleware from "redux-thunk";
+// import { composeWithDevTools } from "redux-devtools-extension";
 
 import App from "./containers/App";
+import Home from "./containers/Home";
 
 import reducers from "./redux";
 
-const store = createStore(reducers, (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+    reducers,
+    applyMiddleware(
+        thunkMiddleware
+    )
+);
 
 render((
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App}>
+                <IndexRoute component={Home}/>
             </Route>
         </Router>
     </Provider>

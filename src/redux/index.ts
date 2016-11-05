@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import counter, { CounterState } from "./modules/counter/counter";
+import files, { FileState } from "./modules/files/files";
 
 export interface Action<T>{
   type: string;
@@ -9,11 +9,11 @@ export interface Action<T>{
 }
 
 export interface RootState {
-    counter: CounterState;
+    files: FileState;
 }
 
 const reducers = combineReducers({
-    counter
+    files
 });
 
 export default reducers;

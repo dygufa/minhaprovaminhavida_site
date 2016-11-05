@@ -1,3 +1,5 @@
-import * as counter from "./counter/counter";
+import * as files from "./files/files";
 
-export { counter };
+export {
+    files
+};
