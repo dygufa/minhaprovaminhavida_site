@@ -21,10 +21,30 @@ export function fetchFiles() {
 
         dispatch(receiveFiles([
             {
-                name: "Arquivo 1"
+                name: "Prova 1",
+				professor: "Tito Luis",
+				course: "Sinais 2",
+				period: "2016.1",
+				thumbnail: "http://thecatapi.com/api/images/get?format=src&type=png&size=small",
+				likes: 15
             },
             {
                 name: "Arquivo 2"
+            },
+            {
+                name: "Arquivo 3"
+            },
+            {
+                name: "Arquivo 4"
+            },
+            {
+                name: "Arquivo 5"
+            },
+            {
+                name: "Arquivo 6"
+            },
+            {
+                name: "Arquivo 7"
             }
         ]));
     };

@@ -9,11 +9,13 @@ class App extends React.Component<Props, {}> {
     render() {
         return (
             <div className={s.site}>
-                <header>
-                    <h1>Logo</h1>
+                <header className={s.header}>
+					<div className="container">
+                    	<h1>Logo</h1>
+					</div>
                 </header>
-                <main>
-                    {this.props.children && React.cloneElement(this.props.children, {})}
+                <main className={s.main}>
+                    {this.props.children}
                 </main>
             </div>
         );

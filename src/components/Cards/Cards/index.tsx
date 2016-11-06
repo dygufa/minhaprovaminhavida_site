@@ -1,5 +1,6 @@
 import * as React from "react";
 import SimpleCard from "../SimpleCard";
+const s = require("./Cards.scss");
 
 export interface Props {
     items: any;
@@ -11,13 +12,18 @@ class Cards extends React.Component<Props, {}> {
             return (
                 <SimpleCard
                     name={file.name}
+					professor={file.professor}
+					course={file.course}
+					thumbnail={file.thumbnail}
                 />
             );
         });
 
         return (
-            <div>
-                {files}
+            <div className="container">
+				<div className={s.cards}>
+					{files}
+				</div>
             </div>
         );
     }

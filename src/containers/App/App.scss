@@ -1,19 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "global";
+
 body {
     margin: 0;
     padding: 0;
-    background: #f00;
+	background: $primary;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+}
+
+:global(.container) {
+	width: 90vw;
+	margin: 0 auto;
 }
 
 .site {
-    background: #ccc;
-
-    header {
-        background: #0f0;
+    header.header {
         height: 80px;
-        border-bottom: 4px solid #000;
+		background: $white;
 
         h1 {
             margin: 0;
         }
     }
+
+	main.main {
+
+	}
 }
