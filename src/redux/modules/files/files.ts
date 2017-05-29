@@ -21,6 +21,7 @@ export function fetchFiles() {
 
         dispatch(receiveFiles([
             {
+                id: 1,
                 name: "Prova 1",
 				professor: "Tito Luis",
 				course: "Sinais 2",
@@ -29,21 +30,27 @@ export function fetchFiles() {
 				likes: 15
             },
             {
+                id: 2,
                 name: "Arquivo 2"
             },
             {
+                id: 3,
                 name: "Arquivo 3"
             },
-            {
+            {   
+                id: 4,
                 name: "Arquivo 4"
             },
             {
+                id: 5,
                 name: "Arquivo 5"
             },
             {
+                id: 6,
                 name: "Arquivo 6"
             },
             {
+                id: 7,
                 name: "Arquivo 7"
             }
         ]));

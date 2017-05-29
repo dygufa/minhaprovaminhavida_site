@@ -36,6 +36,9 @@ module.exports = {
                         }
                     },
                     {
+                        loader: "postcss"
+                    },
+                    {
                         loader: "sass",
                         query: {
                             includePaths: [

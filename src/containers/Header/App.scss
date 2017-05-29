@@ -1,12 +1,11 @@
 @import "global";
-@import "~react-toolbox/lib/commons";
-
-html { font-size: 62.5%; } 
 
 body {
     margin: 0;
     padding: 0;
+	background: $primary;
 	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
 }
 
 :global(.container) {

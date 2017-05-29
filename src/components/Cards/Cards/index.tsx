@@ -11,6 +11,7 @@ class Cards extends React.Component<Props, {}> {
         let files = this.props.items.map((file: any) => {
             return (
                 <SimpleCard
+                    key={file.id}
                     name={file.name}
 					professor={file.professor}
 					course={file.course}
