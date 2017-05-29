@@ -41,7 +41,7 @@
     "redux-form": "^6.2.0",
     "redux-thunk": "^2.1.0",
     "typescript": "^2.0.3",
-    "webpack": "^1.13.3"
+    "webpack-dev-server": "^2.4.5"
   },
   "devDependencies": {
     "@types/node": "^6.0.46",
@@ -55,7 +55,6 @@
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.9.1",
-    "webpack": "^1.13.3",
     "webpack-combine-loaders": "^2.0.3"
   }
 }

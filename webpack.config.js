@@ -5,30 +5,24 @@ module.exports = {
     output: {
         filename: "./dist/bundle.js",
     },
-
-    // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
-
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
-
     module: {
         loaders: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
             {
                 test: /\.tsx?$/,
-                loader: "babel?presets[]=es2015!ts-loader"
+                loader: "babel-loader?presets[]=es2015!ts-loader"
             },
             {
                 test: /\.scss$/,
                 loader: combineLoaders([
                     {
-                        loader: "style"
+                        loader: "style-loader"
                     },
                     {
-                        loader: "css",
+                        loader: "css-loader",
                         query: {
                             modules: true,
                             importLoaders: 1,
@@ -36,10 +30,10 @@ module.exports = {
                         }
                     },
                     {
-                        loader: "postcss"
+                        loader: "postcss-loader"
                     },
                     {
-                        loader: "sass",
+                        loader: "sass-loader",
                         query: {
                             includePaths: [
                                 "./src/styles"
@@ -49,14 +43,6 @@ module.exports = {
                 ])
             }
         ],
-
-        // preLoaders: [
-        //     // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-        //     {
-        //         test: /\.js$/,
-        //         loader: "source-map-loader"
-        //     }
-        // ]
     },
 
     externals: {
