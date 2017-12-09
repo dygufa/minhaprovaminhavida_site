@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        "syntax-dynamic-import",
+        "transform-runtime",
+        "fast-async"
+    ],
+
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": [ "> .5%" ],
+                "uglify": true,
+                "ie": 11
+            },
+            "modules": false,
+            "useBuiltIns": true
+        }],
+        "react"
+    ],
+
+    "env": {
+        "production": {
+            "presets": [
+                "react-optimize"
+            ]
+        }
+    }
+}

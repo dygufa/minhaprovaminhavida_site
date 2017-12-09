@@ -1,0 +1,28 @@
+patch-package
+--- a/node_modules/@types/material-ui/index.d.ts
++++ b/node_modules/@types/material-ui/index.d.ts
+@@ -621,12 +621,14 @@ declare namespace __MaterialUI {
+         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
+     }
+ 
++    export interface DataSourceConfig<DataItem> { text: keyof DataItem; value: keyof DataItem; }
++
+     export interface AutoCompleteProps<DataItem> extends TextFieldProps {
+         anchorOrigin?: propTypes.origin;
+         animated?: boolean;
+         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
+         dataSource: DataItem[];
+-        dataSourceConfig?: { text: string; value: string; };
++        dataSourceConfig?: DataSourceConfig<DataItem>;
+         disableFocusRipple?: boolean;
+         errorStyle?: React.CSSProperties;
+         errorText?: React.ReactNode;
+@@ -652,7 +654,7 @@ declare namespace __MaterialUI {
+         targetOrigin?: propTypes.origin;
+         textFieldStyle?: React.CSSProperties;
+     }
+-    export class AutoComplete extends React.Component<AutoCompleteProps<any>> {
++    export class AutoComplete<DataItem = any> extends React.Component<AutoCompleteProps<DataItem>> {
+         static noFilter(): boolean;
+         static defaultFilter(searchText: string, key: string): boolean;
+         static caseSensitiveFilter(searchText: string, key: string): boolean;

@@ -1,0 +1,22 @@
+@import "config";
+
+.container {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.mobile {
+    flex-direction: column;
+    height: unset !important;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+        margin: 1em;
+    }
+}
