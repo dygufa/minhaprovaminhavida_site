@@ -1,3 +1,8 @@
 declare interface NodeModule {
-    hot?: any;
+	hot?: any;
+}
+
+declare module "*.scss" {
+	const classes: { [key: string]: string | undefined };
+	export default classes;
 }
