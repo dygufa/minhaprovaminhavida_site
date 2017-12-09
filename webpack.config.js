@@ -12,7 +12,7 @@ const hash = shouldBuildForProduction ? "[chunkhash]" : "[name].[hash]";
 const devServerHost = "localhost";
 const devServerPort = 6016;
 
-const rootDir = path.resolve(__dirname);
+// const rootDir = path.resolve(__dirname);
 
 const cssLoader = (modules = false) => ({
 	loader: "css-loader",
@@ -30,19 +30,16 @@ const postCssLoader = {
 	},
 };
 
-const sassLoader = {
+const sassLoader = rootDir => ({
 	loader: "sass-loader",
 	options: {
-		includePaths: [
-			path.resolve(rootDir, "styles"),
-			path.resolve(rootDir, "../shared/styles"),
-		],
+		includePaths: [path.resolve(rootDir, "style")],
 	},
-};
+});
 
 const styleLoader = "style-loader";
 
-function generateConfigForDir(dir) {
+function generateConfigForDir(rootDir) {
 	return {
 		cache: true,
 
@@ -53,7 +50,7 @@ function generateConfigForDir(dir) {
 						// "react-hot-loader/patch",
 						// "webpack/hot/only-dev-server",
 					]),
-			`${dir}index`,
+			`${rootDir}/index`,
 		],
 
 		context: rootDir,
@@ -63,11 +60,11 @@ function generateConfigForDir(dir) {
 			publicPath: "/",
 			filename: "bundle.[hash].js",
 			chunkFilename: `chunk.${hash}.js`,
-			path: path.join(__dirname, "/dist"),
+			path: path.join(rootDir, "/dist"),
 			sourceMapFilename: "bundle.[hash].js.map",
 		},
 
-		devtool: shouldBuildForProduction ? "source-map" : "eval-source-map",
+		devtool: shouldBuildForProduction ? "source-map" : "source-map",
 
 		resolve: {
 			extensions: [".tsx", ".ts", ".js", ".jsx"],
@@ -94,7 +91,11 @@ function generateConfigForDir(dir) {
 					test: /\.scss$/,
 					use: ExtractTextPlugin.extract({
 						fallback: styleLoader,
-						use: [cssLoader(true), postCssLoader, sassLoader],
+						use: [
+							cssLoader(true),
+							postCssLoader,
+							sassLoader(rootDir),
+						],
 					}),
 				},
 				{
@@ -150,7 +151,7 @@ function generateConfigForDir(dir) {
 			new HtmlWebpackPlugin({
 				title: "PIA Payment System",
 				filename: "index.html",
-				template: `${dir}index.html`,
+				template: `${rootDir}/index.html`,
 			}),
 			...(shouldBuildForProduction
 				? [
@@ -211,4 +212,4 @@ function generateConfigForDir(dir) {
 	};
 }
 
-module.exports = generateConfigForDir("./src/");
+module.exports = generateConfigForDir(path.resolve("./src/"));

@@ -1,34 +1,25 @@
 {
-    "buildOnSave": false,
-    "compileOnSave": true,
-    "compilerOptions": {
-        "jsx": "react",
-        "strict": true,
-        "allowJs": true,
-        "sourceMap": true,
-        "target": "es2017",
-        "module": "esnext",
-        "outDir": "./dist/",
-        "types": [ "node" ],
-        "skipLibCheck": true,
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "strictNullChecks": true,
-        "lib": [ "dom", "es2017" ],
-        "moduleResolution": "node",
-        "noUnusedParameters": true,
-        "noImplicitThis": true,
-        "experimentalDecorators": true
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
-    "awesomeTypescriptLoaderOptions": {
-        "useBabel": true,
-        "useCache": true
-    }
+	"buildOnSave": false,
+	"compileOnSave": false,
+	"compilerOptions": {
+		"jsx": "react",
+		"strict": true,
+		"allowJs": true,
+		"sourceMap": true,
+		"target": "es2017",
+		"module": "esnext",
+		"outDir": "./dist/",
+		"skipLibCheck": true,
+		"noUnusedLocals": true,
+		"lib": ["dom", "es2017"],
+		"moduleResolution": "node",
+		"noUnusedParameters": true,
+		"experimentalDecorators": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["dist"],
+	"awesomeTypescriptLoaderOptions": {
+		"useBabel": true,
+		"useCache": true
+	}
 }
