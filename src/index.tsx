@@ -1,38 +1,36 @@
+// Activate polyfills
+require("babel-polyfill");
+
+/* Setup locales before importing anything else */
+
+import "moment/locale/pt-br";
+
+import * as numeral from "numeral";
+require("numeral/locales/pt-br.js");
+numeral.locale("pt-br");
+
+/* Application setup */
+
 import * as React from "react";
 import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import { Router, Route, Redirect, IndexRoute, browserHistory, RouterState, RedirectFunction } from "react-router";
-import thunkMiddleware from "redux-thunk";
-// import { composeWithDevTools } from "redux-devtools-extension";
-const reduxDevtoolsExtension = require("redux-devtools-extension");
-
+import { Provider } from "mobx-react";
+import {} from "react-router";
 import App from "./containers/App";
-import Home from "./containers/Home";
-import Me from "./containers/Me";
-import MyFiles from "./containers/MyFiles";
-import SendFile from "./containers/SendFile";
+import { Router } from "react-router-dom";
+import { useStrict } from "mobx";
 
-import reducers from "./redux";
+import * as store from "./models";
+import { history } from "./models/routing";
 
-const store = createStore(
-    reducers,
-    reduxDevtoolsExtension.composeWithDevTools(applyMiddleware(
-        thunkMiddleware
-    ))
+useStrict(true);
+
+render(
+    (
+        <Provider {...store}>
+            <Router history={history}>
+                <App/>
+            </Router>
+        </Provider>
+    ),
+    document.getElementById("app"),
 );
-
-render((
-    <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/" component={App}>
-                <IndexRoute component={Home}/>
-                <Route path="me">
-                    <IndexRoute component={Me}/>
-                    <Route path="send-file" component={SendFile}/>
-                </Route>
-            </Route>
-        </Router>
-    </Provider>
-
-), document.getElementById("app"));

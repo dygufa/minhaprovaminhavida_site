@@ -1,0 +1,5 @@
+node_modules
+package.json
+.cache-loader
+src/user/dist
+src/manager/dist
