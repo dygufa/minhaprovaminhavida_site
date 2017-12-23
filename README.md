@@ -12,8 +12,10 @@ The API that serves this project can be found in [minhaprovaminhavida_api](https
 * Typescript
 ### Commands:
 
-- `yarn` will download all dependencies;
-- `yarn dev` will run webpack-dev-server.
+- `npm` will download all dependencies;
+- `yarn run dev` will run webpack-dev-server.
+
+*Note*: It's important to use `npm` to take advantage of the `package-lock.json` maintaining in this way the determinism of the application.
 
 ## Todos (by priority)
 
