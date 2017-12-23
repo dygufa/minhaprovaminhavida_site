@@ -7,8 +7,9 @@ import { BrowserRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { MuiThemeProvider, getMuiTheme } from "material-ui/styles";
 import Dialog from "material-ui/Dialog";
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
+// import RaisedButton from 'material-ui/RaisedButton';
+// import FontIcon from 'material-ui/FontIcon';
+const GoogleLogin = require('react-google-login-component').GoogleLogin;
 
 interface IAppProps {
 	uiStore?: UiStore;
@@ -19,6 +20,10 @@ const theme = getMuiTheme({});
 @inject("uiStore")
 @observer
 class App extends React.Component<IAppProps, {}> {
+	private responseGoogle = () => {
+
+	}
+
 	public render() {
 		return (
 			<BrowserRouter>
@@ -37,11 +42,19 @@ class App extends React.Component<IAppProps, {}> {
 						>
 							Escolha uma das opções abaixo para fazer login: <br />
 
-							<RaisedButton
+							<GoogleLogin socialId="656387297871-3naai0hp1kni6ehhr8tk5htc8j9bg7dj.apps.googleusercontent.com"
+								scope="profile"
+								fetchBasicProfile={false}
+								responseHandler={this.responseGoogle}
+								buttonText="Login With Google"
+							/>
+
+							{/* <RaisedButton
 								label="Login Google"
 								primary={true}
 								icon={<FontIcon className="fa fa-google" />}
-							/>
+							/> */}
+
 						</Dialog>
 					</div>
 				</MuiThemeProvider>

@@ -8,5 +8,6 @@ export interface DataSourceConfig<DataItem> {
 }
 
 export function autocompleteOfType<DataItem>() {
-	return (AutoComplete as any) as new () => AutoComplete<DataItem>;
+	return AutoComplete;
+	// return (AutoComplete as any) as new () => AutoComplete<DataItem>;
 }

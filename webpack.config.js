@@ -47,9 +47,9 @@ function generateConfigForDir(rootDir) {
 			...(shouldBuildForProduction
 				? []
 				: [
-						// "react-hot-loader/patch",
-						// "webpack/hot/only-dev-server",
-					]),
+					// "react-hot-loader/patch",
+					// "webpack/hot/only-dev-server",
+				]),
 			`${rootDir}/index`,
 		],
 
@@ -155,48 +155,48 @@ function generateConfigForDir(rootDir) {
 			}),
 			...(shouldBuildForProduction
 				? [
-						// new FaviconsWebpackPlugin(`${dir}assets/favicon-ball.png`),
-						new webpack.HashedModuleIdsPlugin(),
-						new webpack.optimize.AggressiveMergingPlugin({
-							minSize: 1024 * 50,
-							maxSize: 1024 * 100,
-						}),
-						new webpack.optimize.CommonsChunkPlugin({
-							children: true,
-							minChunks: 2,
-							async: true,
-						}),
-						new webpack.LoaderOptionsPlugin({
-							minimize: true,
-							debug: false,
-						}),
-						new webpack.optimize.OccurrenceOrderPlugin(),
-						new webpack.optimize.UglifyJsPlugin({
-							sourceMap: false,
-							mangle: true,
-						}),
-						new ImageMinPlugin({
-							gifsicle: {
-								interlaced: true,
-							},
-							optipng: {
-								enable: true,
-								optimizationLevel: 7,
-							},
-							pngquant: {
-								quality: "65-90",
-								speed: 4,
-							},
-							mozjpeg: {
-								progressive: true,
-								quality: 65,
-							},
-						}),
-					]
+					// new FaviconsWebpackPlugin(`${dir}assets/favicon-ball.png`),
+					new webpack.HashedModuleIdsPlugin(),
+					new webpack.optimize.AggressiveMergingPlugin({
+						minSize: 1024 * 50,
+						maxSize: 1024 * 100,
+					}),
+					new webpack.optimize.CommonsChunkPlugin({
+						children: true,
+						minChunks: 2,
+						async: true,
+					}),
+					new webpack.LoaderOptionsPlugin({
+						minimize: true,
+						debug: false,
+					}),
+					new webpack.optimize.OccurrenceOrderPlugin(),
+					new webpack.optimize.UglifyJsPlugin({
+						sourceMap: false,
+						mangle: true,
+					}),
+					new ImageMinPlugin({
+						gifsicle: {
+							interlaced: true,
+						},
+						optipng: {
+							enable: true,
+							optimizationLevel: 7,
+						},
+						pngquant: {
+							quality: "65-90",
+							speed: 4,
+						},
+						mozjpeg: {
+							progressive: true,
+							quality: 65,
+						},
+					}),
+				]
 				: [
-						// new webpack.NamedModulesPlugin(),
-						// new webpack.HotModuleReplacementPlugin()
-					]),
+					// new webpack.NamedModulesPlugin(),
+					// new webpack.HotModuleReplacementPlugin()
+				]),
 		],
 
 		devServer: {
@@ -204,6 +204,7 @@ function generateConfigForDir(rootDir) {
 			port: devServerPort,
 			host: devServerHost,
 			historyApiFallback: true,
+			disableHostCheck: true,   // That solved it
 		},
 
 		node: {

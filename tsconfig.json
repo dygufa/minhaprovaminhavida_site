@@ -10,14 +10,21 @@
 		"module": "esnext",
 		"outDir": "./dist/",
 		"skipLibCheck": true,
-		"noUnusedLocals": true,
-		"lib": ["dom", "es2017"],
+		"noUnusedLocals": false,
+		"lib": [
+			"dom",
+			"es2017"
+		],
 		"moduleResolution": "node",
 		"noUnusedParameters": true,
 		"experimentalDecorators": true
 	},
-	"include": ["src/**/*"],
-	"exclude": ["dist"],
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"dist"
+	],
 	"awesomeTypescriptLoaderOptions": {
 		"useBabel": true,
 		"useCache": true
