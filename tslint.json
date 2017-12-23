@@ -1,6 +1,11 @@
 {
-	"extends": ["tslint-react", "tslint-config-prettier"],
-	"rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+	"extends": [
+		"tslint-react",
+		"tslint-config-prettier"
+	],
+	"rulesDirectory": [
+		"node_modules/tslint-microsoft-contrib"
+	],
 	"rules": {
 		"member-access": true,
 		"missing-jsdoc": false,
@@ -12,10 +17,19 @@
 		"no-string-throw": true,
 		"no-string-literal": true,
 		"no-object-literal-type-assertion": true,
-		"import-blacklist": [true, "rxjs", "react-icons"],
+		"import-blacklist": [
+			true,
+			"rxjs",
+			"react-icons"
+		],
 		"no-unnecessary-type-assertion": true,
 		"prefer-object-spread": true,
-		"prefer-const": [true, { "destructuring": "all" }],
+		"prefer-const": [
+			true,
+			{
+				"destructuring": "all"
+			}
+		],
 		"arrow-return-shorthand": true,
 		"interface-over-type-literal": true,
 		"no-angle-bracket-type-assertion": true,
@@ -28,14 +42,12 @@
 			"allow-pascal-case",
 			"allow-leading-underscore"
 		],
-
 		"jsx-no-bind": true,
 		"jsx-no-lambda": false,
 		"jsx-self-close": true,
 		"jsx-no-string-ref": true,
 		"jsx-no-multiline-js": false,
 		"jsx-boolean-value": false,
-
 		"react-a11y-anchors": true,
 		"react-a11y-aria-unsupported-elements": true,
 		"react-a11y-event-has-role": true,

@@ -7,7 +7,7 @@ import {
 	IUniversity,
 	IDiscipline,
 	ITeacher,
-} from "../../models/files";
+} from "../../stores/files";
 import s from "./style.scss";
 import * as React from "react";
 import { action, observable, toJS } from "mobx";
@@ -23,7 +23,6 @@ import {
 	Card,
 	CardHeader,
 	CardText,
-	ListItem,
 	Subheader,
 } from "material-ui";
 import { ContentFilterList } from "material-ui/svg-icons";
@@ -52,7 +51,7 @@ interface IMainProps {
 	filesStore?: FilesStore;
 }
 
-interface IMainState {}
+interface IMainState { }
 
 const widthBreakpoint = 1100;
 
@@ -82,7 +81,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
 				filter={AutoComplete.fuzzyFilter}
 				hintText="Universidade"
 				value={value}
-				onChange={(_, value) =>
+				onChange={(_: any, value: any) =>
 					this.props.filesStore!.selectUniversity(value)
 				}
 			/>
@@ -101,7 +100,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
 				filter={AutoComplete.fuzzyFilter}
 				hintText="Disciplina"
 				value={value}
-				onChange={(_, value) =>
+				onChange={(_: any, value: any) =>
 					this.props.filesStore!.selectDiscipline(value)
 				}
 			/>
@@ -120,7 +119,7 @@ export default class Main extends React.Component<IMainProps, IMainState> {
 				filter={AutoComplete.fuzzyFilter}
 				hintText="Professor(a)"
 				value={value}
-				onChange={(_, value) =>
+				onChange={(_: any, value: any) =>
 					this.props.filesStore!.selectTeacher(value)
 				}
 			/>
@@ -202,8 +201,8 @@ export default class Main extends React.Component<IMainProps, IMainState> {
 							</Card>
 						))
 					) : (
-						<div>Ainda não filtrou</div>
-					)}
+									<div>Ainda não filtrou</div>
+								)}
 				</div>
 			</div>
 		);

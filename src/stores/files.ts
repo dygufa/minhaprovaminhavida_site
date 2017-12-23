@@ -1,4 +1,4 @@
-import { observable, action, reaction, runInAction } from "mobx";
+import { observable, action, runInAction } from "mobx";
 import { RootStore } from "./";
 
 export interface IUniversity {
@@ -33,7 +33,7 @@ function sleep(milliseconds: number) {
 }
 
 export class FilesStore {
-	private rootStore: RootStore;
+	protected rootStore: RootStore;
 
 	// read-only data
 	@observable public universities: IUniversity[] = [];

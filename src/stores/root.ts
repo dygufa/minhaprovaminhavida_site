@@ -1,18 +1,21 @@
 import { FilesStore, AuthStore, UiStore } from "./";
 
 export class RootStore {
-    private fileStore: FilesStore;
+    private filesStore: FilesStore;
     private authStore: AuthStore;
+    private uiStore: UiStore;
 
     constructor() {
-        this.fileStore = new FilesStore(this);
+        this.filesStore = new FilesStore(this);
         this.authStore = new AuthStore(this);
+        this.uiStore = new UiStore(this);
     }
 
     public export() {
         return {
-            fileStore: this.fileStore,
-            authStore: this.authStore
+            filesStore: this.filesStore,
+            authStore: this.authStore,
+            uiStore: this.uiStore
         }
     }
 

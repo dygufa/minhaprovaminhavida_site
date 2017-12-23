@@ -17,7 +17,7 @@ import { Provider } from "mobx-react";
 import { } from "react-router";
 import App from "./containers/App";
 import { Router } from "react-router-dom";
-import { useStrict } from "mobx";
+// import { useStrict } from "mobx";
 
 import { RootStore } from "./stores";
 import { history } from "./stores/routing";
