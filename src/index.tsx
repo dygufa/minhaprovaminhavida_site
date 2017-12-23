@@ -14,23 +14,22 @@ numeral.locale("pt-br");
 import * as React from "react";
 import { render } from "react-dom";
 import { Provider } from "mobx-react";
-import {} from "react-router";
+import { } from "react-router";
 import App from "./containers/App";
 import { Router } from "react-router-dom";
 import { useStrict } from "mobx";
 
-import * as store from "./models";
-import { history } from "./models/routing";
+import { RootStore } from "./stores";
+import { history } from "./stores/routing";
 
-useStrict(true);
+// useStrict(true);
+const stores = (new RootStore()).export();
 
 render(
-    (
-        <Provider {...store}>
-            <Router history={history}>
-                <App/>
-            </Router>
-        </Provider>
-    ),
+    <Provider {...stores}>
+        <Router history={history}>
+            <App />
+        </Router>
+    </Provider>,
     document.getElementById("app"),
 );

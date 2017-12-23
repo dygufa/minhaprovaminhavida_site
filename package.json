@@ -1,23 +1,18 @@
 {
-  "name": "payment-system-pia-web",
+  "name": "minhaprovaminhavida_site",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dygufa/payment-system-pia-web.git"
+    "url": "git+https://github.com/dygufa/minhaprovaminhavida_site.git"
   },
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dygufa/payment-system-pia-web/issues"
-  },
-  "homepage": "https://github.com/dygufa/payment-system-pia-web#readme",
+  "homepage": "https://github.com/dygufa/minhaprovaminhavida_site#readme",
   "devDependencies": {
     "@types/material-ui": "^0.18.5",
     "@types/moment": "^2.13.0",

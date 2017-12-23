@@ -1,4 +1,5 @@
 import { observable, action, reaction, runInAction } from "mobx";
+import { RootStore } from "./";
 
 export interface IUniversity {
 	id: string;
@@ -32,6 +33,8 @@ function sleep(milliseconds: number) {
 }
 
 export class FilesStore {
+	private rootStore: RootStore;
+
 	// read-only data
 	@observable public universities: IUniversity[] = [];
 	@observable public disciplines: IDiscipline[] = [];
@@ -48,8 +51,9 @@ export class FilesStore {
 	@observable public files: IFile[] | null = null;
 	@observable public isLoadingSearchResults: boolean = false;
 
-	constructor() {
-		this.updateCategories();
+	constructor(rootStore: RootStore) {
+		this.rootStore = rootStore;
+		this.updateCategories()
 	}
 
 	@action.bound
@@ -138,5 +142,3 @@ export class FilesStore {
 		this.search();
 	}
 }
-
-export const filesStore = new FilesStore();
