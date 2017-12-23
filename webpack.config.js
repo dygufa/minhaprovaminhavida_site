@@ -149,7 +149,7 @@ function generateConfigForDir(rootDir) {
 				),
 			}),
 			new HtmlWebpackPlugin({
-				title: "PIA Payment System",
+				title: "MPMV",
 				filename: "index.html",
 				template: `${rootDir}/index.html`,
 			}),
