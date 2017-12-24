@@ -1,6 +1,5 @@
-import { computed } from "mobx";
+import { computed, action } from "mobx";
 import { RootStore } from "./";
-import { action } from "mobx/lib/api/action";
 import * as api from "../vendor/api";
 export class AuthStore {
 	protected rootStore: RootStore;
