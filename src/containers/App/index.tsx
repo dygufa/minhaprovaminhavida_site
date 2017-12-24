@@ -1,27 +1,28 @@
 import Main from "../Main";
 import NavBar from "../NavBar";
-import { UiStore } from "../../stores/";
+import { UiStore, AuthStore } from "../../stores/";
 import s from "./style.scss";
 import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { MuiThemeProvider, getMuiTheme } from "material-ui/styles";
 import Dialog from "material-ui/Dialog";
-// import RaisedButton from 'material-ui/RaisedButton';
-// import FontIcon from 'material-ui/FontIcon';
-const GoogleLogin = require('react-google-login-component').GoogleLogin;
+import RaisedButton from "material-ui/RaisedButton";
+import FontIcon from "material-ui/FontIcon";
+import GoogleLogin from "react-google-login";
 
 interface IAppProps {
 	uiStore?: UiStore;
+	authStore?: AuthStore;
 }
 
 const theme = getMuiTheme({});
 
-@inject("uiStore")
+@inject("uiStore", "authStore")
 @observer
 class App extends React.Component<IAppProps, {}> {
-	private responseGoogle = () => {
-
+	private responseGoogle = (response: any) => {
+		console.log(response);
 	}
 
 	public render() {
@@ -42,18 +43,19 @@ class App extends React.Component<IAppProps, {}> {
 						>
 							Escolha uma das opções abaixo para fazer login: <br />
 
-							<GoogleLogin socialId="656387297871-3naai0hp1kni6ehhr8tk5htc8j9bg7dj.apps.googleusercontent.com"
-								scope="profile"
-								fetchBasicProfile={false}
-								responseHandler={this.responseGoogle}
-								buttonText="Login With Google"
-							/>
-
-							{/* <RaisedButton
-								label="Login Google"
-								primary={true}
-								icon={<FontIcon className="fa fa-google" />}
-							/> */}
+							<GoogleLogin
+								clientId="656387297871-3naai0hp1kni6ehhr8tk5htc8j9bg7dj.apps.googleusercontent.com"
+								onSuccess={this.responseGoogle}
+								onFailure={this.responseGoogle}
+								tag="div"
+								style={{}}
+							>
+								<RaisedButton
+									label="Login Google"
+									primary={true}
+									icon={<FontIcon className="fa fa-google" />}
+								/>
+							</GoogleLogin>
 
 						</Dialog>
 					</div>
