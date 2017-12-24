@@ -25,11 +25,14 @@ import { history } from "./stores/routing";
 // useStrict(true);
 const stores = (new RootStore()).export();
 
-render(
-    <Provider {...stores}>
-        <Router history={history}>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById("app"),
-);
+window.onload = () => {
+    render(
+        <Provider {...stores}>
+            <Router history={history}>
+                <App />
+            </Router>
+        </Provider>,
+        document.getElementById("app"),
+    );
+}
+

@@ -136,6 +136,7 @@ module.exports = {
 			title: "MPMV",
 			filename: "index.html",
 			template: `./src/index.html`,
+			inject: "head"
 		}),
 		...(shouldBuildForProduction
 			? [
