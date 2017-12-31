@@ -45,7 +45,7 @@ class App extends React.Component<IAppProps, {}> {
 							modal={false}
 							open={this.props.uiStore!.loginDialog}
 							onRequestClose={() => {
-
+								this.props.uiStore!.loginDialog = false;
 							}}
 						>
 							Escolha uma das opções abaixo para fazer login: <br />
