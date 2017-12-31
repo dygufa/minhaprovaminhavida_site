@@ -23,6 +23,7 @@ const theme = getMuiTheme({});
 class App extends React.Component<IAppProps, {}> {
 	private responseGoogle = (response: any) => {
 		console.log(response);
+		this.props.authStore!.loginGoogle(response.accessToken);
 	}
 
 	public render() {
