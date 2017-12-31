@@ -17,14 +17,19 @@ class NavBar extends React.Component<INavBarProps, {}> {
 			<AppBar
 				className={s.navBar}
 				title="Minha Prova Minha Vida"
-				iconElementRight={
-					<FlatButton
-						label={this.props.authStore!.isLogged ? "Adicionar arquivo" : "Login"}
-						onClick={() => {
-							this.props.uiStore!.loginDialog = true;
-						}}
-					/>
-				}
+				iconElementRight={this.props.authStore!.isLogged ? (
+					<div>
+						Olá, {this.props.authStore!.user!.name}
+						<a role="button" onClick={() => this.props.authStore!.logout()}>Logout</a>
+					</div>
+				) : (
+						<FlatButton
+							label={this.props.authStore!.isLogged ? "Adicionar arquivo" : "Login"}
+							onClick={() => {
+								this.props.uiStore!.loginDialog = true;
+							}}
+						/>
+					)}
 			/>
 		);
 	}

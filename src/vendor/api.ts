@@ -1,22 +1,22 @@
 const API_ENDPOINT = "http://localhost:8080/v1";
 
-interface ApiResponse<Payload> {
+export interface ApiResponse<Payload> {
     ok: boolean
     data: Payload
 };
 
-interface User {
+export interface User {
     id: number
     name: string
     email: string
 }
 
-interface AuthPayload {
+export interface AuthPayload {
     jwt: string
     user: User
 }
 
-interface UserInfoPayload {
+export interface UserInfoPayload {
     user: User
 }
 
@@ -26,6 +26,23 @@ const getToken = () => {
 
 export const loginGoogle = (token: string): Promise<ApiResponse<AuthPayload>> => {
     return fetch(API_ENDPOINT + "/users/login/google", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ access_token: token })
+    }).then(async res => {
+        const json: ApiResponse<AuthPayload> = await res.json();
+        if (json.ok) {
+            localStorage.setItem("jwt", json.data.jwt);
+        }
+        return json;
+    });
+}
+
+export const loginFacebook = (token: string): Promise<ApiResponse<AuthPayload>> => {
+    return fetch(API_ENDPOINT + "/users/login/facebook", {
         method: "POST",
         headers: {
             "Accept": "application/json, text/plain, */*",

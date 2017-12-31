@@ -10,6 +10,7 @@ import Dialog from "material-ui/Dialog";
 import RaisedButton from "material-ui/RaisedButton";
 import FontIcon from "material-ui/FontIcon";
 import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 
 interface IAppProps {
 	uiStore?: UiStore;
@@ -24,6 +25,11 @@ class App extends React.Component<IAppProps, {}> {
 	private responseGoogle = (response: any) => {
 		console.log(response);
 		this.props.authStore!.loginGoogle(response.accessToken);
+	}
+
+	private responseFacebook = (response: any) => {
+		console.log(response);
+		this.props.authStore!.loginFacebook(response.accessToken);
 	}
 
 	public render() {
@@ -57,6 +63,19 @@ class App extends React.Component<IAppProps, {}> {
 									icon={<FontIcon className="fa fa-google" />}
 								/>
 							</GoogleLogin>
+
+							<FacebookLogin
+								appId="1599405403704130"
+								fields="name,email,picture"
+								autoLoad={false}
+								callback={this.responseFacebook}
+							>
+								<RaisedButton
+									label="Login Facebok"
+									primary={true}
+									icon={<FontIcon className="fa fa-facebook" />}
+								/>
+							</FacebookLogin>
 
 						</Dialog>
 					</div>

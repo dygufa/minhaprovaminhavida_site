@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
+    "@types/react-facebook-login": "^3.6.1",
     "@types/react-responsive": "^3.0.0",
     "classnames": "^2.2.5",
     "formik": "^0.10.5",
@@ -73,6 +74,7 @@
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",
+    "react-facebook-login": "^3.7.2",
     "react-fns": "^1.2.0",
     "react-google-login": "^3.0.2",
     "react-responsive": "^4.0.3",
