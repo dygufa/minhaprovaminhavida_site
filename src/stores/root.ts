@@ -1,9 +1,9 @@
 import { FilesStore, AuthStore, UiStore } from "./";
 
 export class RootStore {
-    private filesStore: FilesStore;
-    private authStore: AuthStore;
-    private uiStore: UiStore;
+    public filesStore: FilesStore;
+    public authStore: AuthStore;
+    public uiStore: UiStore;
 
     constructor() {
         this.filesStore = new FilesStore(this);
