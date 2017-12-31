@@ -6,7 +6,7 @@ install:
   - npm install
 
 script:
-  - NODE_ENV=production webpack
+  - NODE_ENV=production webpack --progress
 
 deploy:
   provider: s3
