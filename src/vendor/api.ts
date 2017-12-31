@@ -1,4 +1,4 @@
-const API_ENDPOINT = "http://localhost:8080/v1";
+const API_ENDPOINT = process.env.NODE_ENV === "development" ? "http://localhost:8080/v1" : "https://api.minhaprovaminhavida.com.br/v1";
 
 export interface ApiResponse<Payload> {
     ok: boolean
