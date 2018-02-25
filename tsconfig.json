@@ -10,7 +10,7 @@
 		"module": "esnext",
 		"outDir": "./dist/",
 		"skipLibCheck": true,
-		"noUnusedLocals": false,
+		"noUnusedLocals": true,
 		"lib": [
 			"dom",
 			"es2017"
