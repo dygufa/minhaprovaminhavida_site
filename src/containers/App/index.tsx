@@ -6,11 +6,8 @@ import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { MuiThemeProvider, getMuiTheme } from "material-ui/styles";
-import Dialog from "material-ui/Dialog";
-import RaisedButton from "material-ui/RaisedButton";
-import FontIcon from "material-ui/FontIcon";
-import GoogleLogin from "react-google-login";
-import FacebookLogin from "react-facebook-login";
+import LoginDialog from "../../components/dialogs/LoginDialog/";
+import SendFileDialog from "../../components/dialogs/SendFileDialog/";
 
 interface IAppProps {
 	uiStore?: UiStore;
@@ -32,6 +29,14 @@ class App extends React.Component<IAppProps, {}> {
 		this.props.authStore!.loginFacebook(response.accessToken);
 	}
 
+	private onCloseLogin = () => {
+		this.props.uiStore!.loginDialog = false;
+	}
+
+	private onCloseAddFile = () => {
+		this.props.uiStore!.addFileDialog = false;
+	}
+
 	public render() {
 		return (
 			<BrowserRouter>
@@ -40,44 +45,17 @@ class App extends React.Component<IAppProps, {}> {
 						<NavBar />
 						<Main />
 
-						<Dialog
-							title="Fazer login"
-							modal={false}
+						<LoginDialog
 							open={this.props.uiStore!.loginDialog}
-							onRequestClose={() => {
-								this.props.uiStore!.loginDialog = false;
-							}}
-						>
-							Escolha uma das opções abaixo para fazer login: <br />
+							onClose={this.onCloseLogin}
+							responseFacebook={this.responseFacebook}
+							responseGoogle={this.responseGoogle}
+						/>
 
-							<GoogleLogin
-								clientId="656387297871-3naai0hp1kni6ehhr8tk5htc8j9bg7dj.apps.googleusercontent.com"
-								onSuccess={this.responseGoogle}
-								onFailure={this.responseGoogle}
-								tag="div"
-								style={{}}
-							>
-								<RaisedButton
-									label="Login Google"
-									primary={true}
-									icon={<FontIcon className="fa fa-google" />}
-								/>
-							</GoogleLogin>
-
-							<FacebookLogin
-								appId="1599405403704130"
-								fields="name,email,picture"
-								autoLoad={false}
-								callback={this.responseFacebook}
-							>
-								<RaisedButton
-									label="Login Facebok"
-									primary={true}
-									icon={<FontIcon className="fa fa-facebook" />}
-								/>
-							</FacebookLogin>
-
-						</Dialog>
+						<SendFileDialog
+							open={this.props.uiStore!.addFileDialog}
+							onClose={this.onCloseAddFile}
+						/>
 					</div>
 				</MuiThemeProvider>
 			</BrowserRouter>
