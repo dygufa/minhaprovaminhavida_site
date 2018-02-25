@@ -21,6 +21,36 @@ export interface UserInfoPayload {
     user: User
 }
 
+export interface Course {
+    id: number
+    name: string
+    code: string
+}
+
+export interface BasicUniversity {
+    id: number
+    name: string
+    acronym: string
+}
+
+export interface PublicUser {
+    id: number
+    name: string
+    email: string
+    avatar: string
+}
+
+export interface File {
+    id: number
+    name: string
+    file: string
+    createdAt: Date
+    type: "exam" | "test"
+    course: Course
+    university: BasicUniversity
+    user: PublicUser
+}
+
 const getToken = () => {
     return localStorage.getItem("jwt");
 };
@@ -61,6 +91,17 @@ export const loginFacebook = (token: string): Promise<ApiResponse<AuthPayload>> 
 
 export const getUserInfo = (): Promise<ApiResponse<UserInfoPayload>> => {
     return fetch(API_ENDPOINT + "/users/me", {
+        method: "GET",
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "Authorization": `bearer ${getToken()}`
+        }
+    }).then(res => res.json());
+}
+
+export const getFiles = (): Promise<ApiResponse<File[]>> => {
+    return fetch(API_ENDPOINT + "/files", {
         method: "GET",
         headers: {
             "Accept": "application/json, text/plain, */*",

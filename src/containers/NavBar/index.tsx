@@ -2,7 +2,7 @@ import s from "./style.scss";
 import { AuthStore, UiStore } from "../../stores/";
 import * as React from "react";
 import { observer, inject } from "mobx-react";
-import { AppBar, FlatButton, Avatar, Popover, Menu, MenuItem } from "material-ui";
+import { AppBar, FlatButton, Avatar, Popover, Menu, MenuItem, RaisedButton } from "material-ui";
 
 interface INavBarProps {
 	authStore?: AuthStore;
@@ -48,17 +48,22 @@ class NavBar extends React.Component<INavBarProps, INavBarState> {
 						alignItems: "center",
 						marginRight: "10px"
 					}}>
-						<FlatButton
+						<RaisedButton
 							label="Adicionar arquivo"
 							onClick={() => {
 								this.props.uiStore!.addFileDialog = true;
 							}}
+							style={{
+								marginRight: "30px"
+							}}
 						/>
+
 						<Avatar
 							src={this.props.authStore!.user!.avatar}
 							onClick={this.handleClick}
 							style={{ cursor: "pointer" }}
 						/>
+
 						<Popover
 							open={this.state.userMenuOpen}
 							anchorEl={this.state.userMenuAnchorElement}
