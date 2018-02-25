@@ -42,53 +42,54 @@ class NavBar extends React.Component<INavBarProps, INavBarState> {
 			<AppBar
 				className={s.navBar}
 				title="Minha Prova Minha Vida"
-				iconElementRight={this.props.authStore!.isLogged ? (
+				showMenuIconButton={false}
+			>
+				{this.props.authStore!.isLogged ? (
 					<div style={{
-						display: "flex",
-						alignItems: "center",
-						marginRight: "10px"
-					}}>
-						<RaisedButton
-							label="Adicionar arquivo"
-							onClick={() => {
-								this.props.uiStore!.addFileDialog = true;
-							}}
-							style={{
-								marginRight: "30px"
-							}}
-						/>
+					display: "flex",
+					alignItems: "center"
+				}}>
+					<RaisedButton
+						label="Adicionar arquivo"
+						onClick={() => {
+							this.props.uiStore!.addFileDialog = true;
+						}}
+						style={{
+							marginRight: "30px"
+						}}
+					/>
 
-						<Avatar
-							src={this.props.authStore!.user!.avatar}
-							onClick={this.handleClick}
-							style={{ cursor: "pointer" }}
-						/>
+					<Avatar
+						src={this.props.authStore!.user!.avatar}
+						onClick={this.handleClick}
+						style={{ cursor: "pointer" }}
+					/>
 
-						<Popover
-							open={this.state.userMenuOpen}
-							anchorEl={this.state.userMenuAnchorElement}
-							anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-							targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-							onRequestClose={this.handleRequestClose}
-						>
-							<Menu>
-								<MenuItem
-									primaryText="Sair"
-									onClick={() => this.props.authStore!.logout()}
-								/>
-							</Menu>
-						</Popover>
-					</div>
+					<Popover
+						open={this.state.userMenuOpen}
+						anchorEl={this.state.userMenuAnchorElement}
+						anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+						targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+						onRequestClose={this.handleRequestClose}
+					>
+						<Menu>
+							<MenuItem
+								primaryText="Sair"
+								onClick={() => this.props.authStore!.logout()}
+							/>
+						</Menu>
+					</Popover>
+				</div>
 
 				) : (
 					<FlatButton
-						label="Entrar"
-						onClick={() => {
-							this.props.uiStore!.loginDialog = true;
-						}}
-					/>
+					label="Entrar"
+					onClick={() => {
+						this.props.uiStore!.loginDialog = true;
+					}}
+				/>
 				)}
-			/>
+			</AppBar>
 		);
 	}
 }
