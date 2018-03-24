@@ -1,3 +1,4 @@
 node_modules
 dist
 .awcache
+yarn-error.log
