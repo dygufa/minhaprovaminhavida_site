@@ -51,6 +51,14 @@ export interface File {
     user: PublicUser
 }
 
+export interface NewFile {
+    name: string
+    files: Blob[]
+    type: "exam" | "test"
+    universityId: string
+    courseId: string
+}
+
 const getToken = () => {
     return localStorage.getItem("jwt");
 };
@@ -108,5 +116,36 @@ export const getFiles = (): Promise<ApiResponse<File[]>> => {
             "Content-Type": "application/json",
             "Authorization": `bearer ${getToken()}`
         }
+    }).then(res => res.json());
+}
+
+export const getUniversities = (): Promise<ApiResponse<BasicUniversity[]>> => {
+    return fetch(API_ENDPOINT + "/universities", {
+        method: "GET",
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "Authorization": `bearer ${getToken()}`
+        }
+    }).then(res => res.json());
+}
+
+export const addFile = (newFile: NewFile): Promise<ApiResponse<File>> => {
+    const { files, ...json } = newFile
+    
+    const formData = new FormData();
+    
+    formData.append("json", JSON.stringify(json));
+    files.forEach(file => {
+        formData.append("files[]", file);
+    });
+
+    return fetch(API_ENDPOINT + "/files", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            "Authorization": `bearer ${getToken()}`
+        },
+        body: formData
     }).then(res => res.json());
 }
