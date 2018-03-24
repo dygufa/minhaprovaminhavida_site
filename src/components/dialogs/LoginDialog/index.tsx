@@ -25,7 +25,7 @@ class LoginDialog extends React.Component<ILoginDialogProps, {}> {
                 Escolha uma das opções abaixo para fazer login: <br />
 
                 <GoogleLogin
-                    clientId="656387297871-3naai0hp1kni6ehhr8tk5htc8j9bg7dj.LoginDialogs.googleusercontent.com"
+                    clientId="656387297871-3naai0hp1kni6ehhr8tk5htc8j9bg7dj.apps.googleusercontent.com"
                     onSuccess={this.props.responseGoogle}
                     onFailure={this.props.responseGoogle}
                     tag="div"
