@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { MuiThemeProvider, getMuiTheme } from "material-ui/styles";
 import LoginDialog from "../../components/dialogs/LoginDialog/";
-import SendFileDialog from "../../components/dialogs/SendFileDialog/";
+import SendFileDialog from "../SendFileDialog/";
 
 interface IAppProps {
 	uiStore?: UiStore;
