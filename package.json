@@ -64,7 +64,7 @@
     "@types/react-facebook-login": "^3.6.1",
     "@types/react-responsive": "^3.0.0",
     "classnames": "^2.2.5",
-    "formik": "^0.10.5",
+    "formik": "^0.11.11",
     "material-ui": "^0.20.0",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
