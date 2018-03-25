@@ -156,10 +156,10 @@ module.exports = {
 					debug: false,
 				}),
 				new webpack.optimize.OccurrenceOrderPlugin(),
-				new webpack.optimize.UglifyJsPlugin({
-					sourceMap: false,
-					mangle: true,
-				}),
+				// new webpack.optimize.UglifyJsPlugin({
+				// 	sourceMap: false,
+				// 	mangle: true,
+				// }),
 				new ImageMinPlugin({
 					gifsicle: {
 						interlaced: true,
