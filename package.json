@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
+    "@types/query-string": "^5.1.0",
     "@types/react-facebook-login": "^3.6.1",
     "@types/react-responsive": "^3.0.0",
     "classnames": "^2.2.5",
@@ -71,6 +72,7 @@
     "mobx-react-router": "^4.0.1",
     "moment": "^2.19.3",
     "numeral": "^2.0.6",
+    "query-string": "^6.0.0",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",

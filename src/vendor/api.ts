@@ -1,3 +1,4 @@
+import * as queryString from "query-string";
 const API_ENDPOINT = process.env.NODE_ENV === "development" ? "http://localhost:8080/v1" : "https://api.minhaprovaminhavida.com.br/v1";
 
 export interface ApiResponse<Payload> {
@@ -129,6 +130,18 @@ export const getUniversities = (): Promise<ApiResponse<BasicUniversity[]>> => {
         }
     }).then(res => res.json());
 }
+
+export const getCourses = (params = {}): Promise<ApiResponse<Course[]>> => {
+    return fetch(API_ENDPOINT + "/courses?" + queryString.stringify(params), {
+        method: "GET",
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "Authorization": `bearer ${getToken()}`
+        }
+    }).then(res => res.json());
+}
+
 
 export const addFile = (newFile: NewFile): Promise<ApiResponse<File>> => {
     const { files, ...json } = newFile

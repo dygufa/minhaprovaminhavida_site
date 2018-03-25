@@ -53,7 +53,7 @@ class App extends React.Component<IAppProps, {}> {
 						/>
 
 						<SendFileDialog
-							open={this.props.uiStore!.addFileDialog}
+							open={this.props.uiStore!.addFileDialog || true}
 							onClose={this.onCloseAddFile}
 						/>
 					</div>
