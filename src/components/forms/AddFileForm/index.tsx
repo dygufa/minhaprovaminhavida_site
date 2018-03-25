@@ -1,14 +1,13 @@
 import * as React from "react";
 import { Course, ApiResponse, BasicUniversity } from "../../../vendor/api";
-import { withFormik, FormikProps } from "formik";
-import TextField from "material-ui/TextField";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
 import CircularProgress from "material-ui/CircularProgress";
 import { Stepper, Step, StepLabel } from "material-ui/Stepper";
 
 import CoursesTable from "../../Tables/CoursesTable";
+import BasicInfoForm, { IBasicInfoFormValue } from "./Forms/BasicInfo";
+import SearchCourseForm, { ISearchCourseFormValue } from "./Forms/SearchCourse";
+import AddCourseForm, { IAddCourseFormValue } from "./Forms/AddCourse";
 
 const s = require("./style.scss");
 
@@ -22,23 +21,29 @@ interface IAddFileFormProps {
 	universities: BasicUniversity[];
 }
 
-type Props = IAddFileFormProps & FormikProps<IAddFileFormValue>;
-
 interface IAddFileFormState {
 	step: number;
 	courseStep: number;
-	courseCode: string;
+	searchCourseCode: string;
 	searchingCourse: boolean;
 	searchResult: Course[] | null;
+	fileName: string;
+	universityId: string;
+	courseCode: string;
+	courseName: string;
 }
 
-class AddFileForm extends React.Component<Props, IAddFileFormState> {
+export default class AddFileForm extends React.Component<IAddFileFormProps, IAddFileFormState> {
 	public state: IAddFileFormState = {
-		step: 1,
+		step: 0,
 		courseStep: 0,
-		courseCode: "",
+		searchCourseCode: "",
 		searchingCourse: false,
-		searchResult: null
+		searchResult: null,
+		fileName: "",
+		universityId: "",
+		courseCode: "",
+		courseName: "",
 	}
 
 	private goToStep(step: number) {
@@ -53,55 +58,11 @@ class AddFileForm extends React.Component<Props, IAddFileFormState> {
 		});
 	}
 
-	private basicInfo() {
-		const { universities, values, setFieldValue } = this.props;
-	
-		return (
-			<>
-				<div>
-					<TextField
-						floatingLabelText="Nome do arquivo"
-						floatingLabelFixed={true}
-					/>
-				</div>
-
-				<div>
-					<SelectField
-						floatingLabelText="Universidade"
-						value={values.universityId}
-						floatingLabelFixed={true}
-						onChange={(event, index, value) => setFieldValue("universityId", value)}
-					>
-						{universities.map(university =>
-							<MenuItem key={university.id} value={university.id} primaryText={university.name} />
-						)}
-					</SelectField>
-				</div>
-
-				<div className={s.actionButtons}>
-					<RaisedButton
-						onClick={() => this.goToStep(1)} 
-						label="Próximo" 
-						primary={true} 
-					/>
-				</div>
-			</>
-		);		
-	}
-
-	private onSearchCourse = () => {
+	private onAddCourseSubmit = (values: IAddCourseFormValue) => {
 		this.setState({
-			searchingCourse: true
-		});
-
-		const { courseCode } = this.state;
-
-		this.props.onSearchCourse(courseCode).then(courses => {
-			this.setState({
-				searchingCourse: false,
-				searchResult: courses.data,
-				courseStep: courses.data.length === 0 ? 1 : 0
-			});
+			courseCode: values.code,
+			courseName: values.name,
+			step: 2
 		});
 	}
 
@@ -110,32 +71,38 @@ class AddFileForm extends React.Component<Props, IAddFileFormState> {
 			case 0:
 				return this.searchCourse();
 			case 1:
-				return this.addCourse();
+				return (
+					<AddCourseForm
+						onSubmit={this.onAddCourseSubmit}
+						goBack={() => this.goToCourseStep(0)}
+						name={this.state.courseName}
+						code={this.state.courseCode}
+					/>
+				);
 		}	
+	}
+
+	private onSearchCourseFormSubmit = (values: ISearchCourseFormValue) => {
+		this.setState({
+			searchingCourse: true
+		});
+
+		this.props.onSearchCourse(values.courseCode).then(courses => {
+			this.setState({
+				searchingCourse: false,
+				searchResult: courses.data,
+				courseStep: courses.data.length === 0 ? 1 : 0
+			});
+		});
 	}
 
 	private searchCourse() {
 		return (
 			<>
-				<div style={{ display: "flex" }}>
-					<TextField
-						floatingLabelText="Código da disciplina"
-						floatingLabelFixed={true}
-						value={this.state.courseCode}
-						onChange={(event, value) => this.setState({ courseCode: value })}
-						style={{ flex: 1 }}
-					/>
-
-					<RaisedButton
-						label="Buscar"
-						primary={true}
-						onClick={this.onSearchCourse}
-						style={{
-							marginLeft: "20px",
-							alignSelf: "flex-end"
-						}}
-					/>
-				</div>
+				<SearchCourseForm
+					onSubmit={this.onSearchCourseFormSubmit}
+					courseCode={this.state.searchCourseCode}
+				/>
 
 				{this.state.searchingCourse && (
 					<div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
@@ -164,49 +131,25 @@ class AddFileForm extends React.Component<Props, IAddFileFormState> {
 		);
 	}
 
-	private addCourse() {
-		return (
-			<>
-				<div style={{ marginTop: "20px"}}>
-					Nenhum curso encontrado com esse código. Preencha o formulário abaixo para criar a disciplina ou faça uma nova busca:
-
-					<div style={{ display: "flex", justifyContent: "space-between"}}>
-						<TextField
-							floatingLabelText="Código da discplina"
-							floatingLabelFixed={true}
-						/>
-
-						<TextField
-							floatingLabelText="Nome da discplina"
-							floatingLabelFixed={true}
-						/>
-					</div>
-					
-				</div>				
-
-				<div className={s.actionButtons} style={{ marginTop: "40px"}}>
-					<RaisedButton 
-						onClick={() => this.goToCourseStep(0)} 
-						label="Voltar para busca" 
-					/>
-
-					<RaisedButton 
-						onClick={() => this.goToStep(2)} 
-						label="Adicionar curso e prosseguir" 
-						primary={true} 
-						style={{
-							marginLeft: "10px"
-						}}
-					/>
-				</div>
-			</>
-		);
+	private onBasicInfoSubmit = (values: IBasicInfoFormValue) => {
+		this.setState({
+			fileName: values.name,
+			universityId: values.universityId,
+			step: 1
+		});
 	}
 
 	private content() {
 		switch(this.state.step) {
 			case 0:
-				return this.basicInfo();
+				return (
+					<BasicInfoForm
+						onSubmit={this.onBasicInfoSubmit}
+						universities={this.props.universities}
+						fileName={this.state.fileName}
+						universityId={this.state.universityId}
+					/>
+				);
 			case 1:
 				return this.courseContent();
 		}	
@@ -214,10 +157,8 @@ class AddFileForm extends React.Component<Props, IAddFileFormState> {
 
 
 	public render() {
-		// const { universities, values, setFieldValue } = this.props;
-
 		return (
-			<form onSubmit={this.props.handleSubmit}>
+			<>
 				<Stepper activeStep={this.state.step}>
 					<Step>
 						<StepLabel>Informações básicas</StepLabel>
@@ -230,14 +171,8 @@ class AddFileForm extends React.Component<Props, IAddFileFormState> {
 					</Step>
 				</Stepper>
 
-				{this.content()}				
-			</form>
+				{this.content()}	
+			</>
 		);
 	}
 }
-
-export default withFormik<IAddFileFormProps, IAddFileFormValue>({
-	handleSubmit(value, props) {
-		props.props.onSubmit(value);
-	},
-})(AddFileForm);
